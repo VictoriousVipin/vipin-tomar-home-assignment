@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: api-config
+    labels:
+        app: api
+
+data:
+    DB_HOST: "db-service"
+    DB_PORT: "5432"
+    DB_NAME: "mydb"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: db-init-sql
+
+data:
+    init.sql: |
+        CREATE TABLE IF NOT EXISTS customer (
+            customer_id SERIAL PRIMARY KEY,
+            first_name VARCHAR(50),
+            last_name VARCHAR(50),
+            email VARCHAR(100),
+            phone VARCHAR(20),
+            gender VARCHAR(10),
+            city VARCHAR(50),
+            state VARCHAR(50),
+            country VARCHAR(50)
+        );
+
+        INSERT INTO customer (first_name, last_name, email, phone, gender, city, state, country) VALUES
+        ('Vipin', 'Tomar', 'vipin.tomar@example.com', '9876543210', 'Male', 'Dehradun', 'Uttarakhand', 'India'),
+        ('Diya', 'Patel', 'diya.patel@example.com', '9876543211', 'Female', 'Ahmedabad', 'Gujarat', 'India'),
+        ('Vihaan', 'Singh', 'vihaan.singh@example.com', '9876543212', 'Male', 'Delhi', 'Delhi', 'India'),
+        ('Ananya', 'Gupta', 'ananya.gupta@example.com', '9876543213', 'Female', 'Bangalore', 'Karnataka', 'India'),
+        ('Arjun', 'Kumar', 'arjun.kumar@example.com', '9876543214', 'Male', 'Chennai', 'Tamil Nadu', 'India');
